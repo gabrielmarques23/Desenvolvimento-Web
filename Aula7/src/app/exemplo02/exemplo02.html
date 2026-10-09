@@ -1,0 +1,8 @@
+<div>
+    <p>No seu carrinho há:</p>
+
+    @for (p of carrinho; track p.produto) {
+    <p>{{p.quantidade}} {{p.produto}}</p>
+    <p>No valor de: {{p.preco}}</p>
+    }
+</div>
