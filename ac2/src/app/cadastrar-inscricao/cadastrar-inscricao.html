@@ -1,0 +1,29 @@
+<section class="card">
+  <h1>Cadastrar inscrição</h1>
+
+  <form (ngSubmit)="cadastrar()">
+    <label>
+      Nome
+      <input name="nome" [(ngModel)]="formulario.nome" required />
+    </label>
+
+    <label>
+      E-mail
+      <input name="email" type="email" [(ngModel)]="formulario.email" required />
+    </label>
+
+    <label>
+      Oficina
+      <select name="oficina" [(ngModel)]="formulario.oficina" required>
+        <option value="" disabled>Selecione uma oficina</option>
+        @for (oficina of oficinas; track oficina) {
+          <option [value]="oficina">{{ oficina }}</option>
+        }
+      </select>
+    </label>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <a routerLink="/lista">Ver lista de inscrições</a>
+</section>
