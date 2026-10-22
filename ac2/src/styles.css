@@ -65,3 +65,61 @@ a {
   margin-top: 1rem;
   color: #2563eb;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+li div {
+  flex: 1;
+  display: grid;
+  gap: 0.2rem;
+  min-width: 200px;
+}
+
+li div span {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.status {
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.pendente {
+  background: #fef08a;
+  color: #854d0e;
+}
+
+.confirmada {
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.confirmar {
+  background: #16a34a;
+}
+
+.remover {
+  background: #f97316;
+}
+
+.contadores {
+  font-weight: 700;
+}

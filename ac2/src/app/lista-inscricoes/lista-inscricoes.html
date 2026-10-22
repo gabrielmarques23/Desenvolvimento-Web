@@ -1,0 +1,53 @@
+<section class="card">
+  <h1>Inscrições</h1>
+
+  @let inscricoes = inscricaoService.listar();
+  @let confirmadas = inscricoes.filter((inscricao) => inscricao.status === 'Confirmada').length;
+  @let pendentes = inscricoes.length - confirmadas;
+
+  <p class="contadores">
+    Total: {{ inscricoes.length }} | Confirmadas: {{ confirmadas }} | Pendentes: {{ pendentes }}
+  </p>
+
+  @if (inscricoes.length === 0) {
+    <p>Nenhuma inscrição cadastrada</p>
+  } @else {
+    <ul>
+      @for (inscricao of inscricoes; track inscricao.id) {
+        <li>
+          <div>
+            <strong>{{ inscricao.nome }}</strong>
+            <span>{{ inscricao.email }} - {{ inscricao.oficina }}</span>
+          </div>
+
+          <span
+            class="status"
+            [class.pendente]="inscricao.status === 'Pendente'"
+            [class.confirmada]="inscricao.status === 'Confirmada'"
+          >
+            {{ inscricao.status }}
+          </span>
+
+          <button
+            class="confirmar"
+            type="button"
+            (click)="inscricaoService.confirmarInscricao(inscricao.id)"
+            [disabled]="inscricao.status === 'Confirmada'"
+          >
+            Confirmar inscrição
+          </button>
+
+          <button
+            class="remover"
+            type="button"
+            (click)="inscricaoService.remover(inscricao.id)"
+          >
+            Remover
+          </button>
+        </li>
+      }
+    </ul>
+  }
+
+  <a routerLink="/cadastro">Voltar ao cadastro</a>
+</section>
