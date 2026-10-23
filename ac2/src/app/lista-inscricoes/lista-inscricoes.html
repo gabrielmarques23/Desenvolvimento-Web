@@ -10,43 +10,32 @@
   </p>
 
   @if (inscricoes.length === 0) {
-    <p>Nenhuma inscrição cadastrada</p>
+  <p>Nenhuma inscrição cadastrada</p>
   } @else {
-    <ul>
-      @for (inscricao of inscricoes; track inscricao.id) {
-        <li>
-          <div>
-            <strong>{{ inscricao.nome }}</strong>
-            <span>{{ inscricao.email }} - {{ inscricao.oficina }}</span>
-          </div>
+  <ul>
+    @for (inscricao of inscricoes; track inscricao.id) {
+    <li>
+      <div>
+        <strong>{{ inscricao.nome }}</strong>
+        <span>{{ inscricao.email }} - {{ inscricao.oficina }}</span>
+      </div>
 
-          <span
-            class="status"
-            [class.pendente]="inscricao.status === 'Pendente'"
-            [class.confirmada]="inscricao.status === 'Confirmada'"
-          >
-            {{ inscricao.status }}
-          </span>
+      <span class="status" [class.pendente]="inscricao.status === 'Pendente'"
+        [class.confirmada]="inscricao.status === 'Confirmada'">
+        {{ inscricao.status }}
+      </span>
 
-          <button
-            class="confirmar"
-            type="button"
-            (click)="inscricaoService.confirmarInscricao(inscricao.id)"
-            [disabled]="inscricao.status === 'Confirmada'"
-          >
-            Confirmar inscrição
-          </button>
+      <button class="confirmar" type="button" (click)="inscricaoService.confirmarInscricao(inscricao.id)"
+        [disabled]="inscricao.status === 'Confirmada'">
+        Confirmar inscrição
+      </button>
 
-          <button
-            class="remover"
-            type="button"
-            (click)="inscricaoService.remover(inscricao.id)"
-          >
-            Remover
-          </button>
-        </li>
-      }
-    </ul>
+      <button class="remover" type="button" (click)="inscricaoService.remover(inscricao.id)">
+        Remover
+      </button>
+    </li>
+    }
+  </ul>
   }
 
   <a routerLink="/cadastro">Voltar ao cadastro</a>

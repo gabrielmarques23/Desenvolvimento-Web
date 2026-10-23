@@ -17,7 +17,7 @@
       <select name="oficina" [(ngModel)]="formulario.oficina" required>
         <option value="" disabled>Selecione uma oficina</option>
         @for (oficina of oficinas; track oficina) {
-          <option [value]="oficina">{{ oficina }}</option>
+        <option [value]="oficina">{{ oficina }}</option>
         }
       </select>
     </label>
