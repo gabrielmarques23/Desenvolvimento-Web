@@ -10,34 +10,56 @@ export interface Inscricao {
   status: StatusInscricao;
 }
 
-export type NovaInscricao = Omit<Inscricao, 'id' | 'status'>;
+export interface NovaInscricao {
+  nome: string;
+  email: string;
+  oficina: string;
+}
 
 @Service()
 export class InscricaoService {
-  private readonly inscricoes = signal<Inscricao[]>([]);
-  private readonly proximoId = signal(0);
+  inscricoes = signal<Inscricao[]>([]);
+  private proximoId = 0;
 
-  listar(): Inscricao[] {
-    return this.inscricoes();
+  adicionar(dados: NovaInscricao) {
+    this.proximoId = this.proximoId + 1;
+
+    const novaInscricao: Inscricao = {
+      id: this.proximoId,
+      nome: dados.nome,
+      email: dados.email,
+      oficina: dados.oficina,
+      status: 'Pendente',
+    };
+
+    const lista = this.inscricoes();
+    const novaLista = lista.concat(novaInscricao);
+    this.inscricoes.set(novaLista);
   }
 
-  adicionar(novaInscricao: NovaInscricao): void {
-    this.proximoId.update((id) => id + 1);
-    this.inscricoes.update((lista) => [
-      ...lista,
-      { id: this.proximoId(), ...novaInscricao, status: 'Pendente' },
-    ]);
+  remover(id: number) {
+    const lista = this.inscricoes();
+    const novaLista = lista.filter((inscricao) => inscricao.id !== id);
+    this.inscricoes.set(novaLista);
   }
 
-  remover(id: number): void {
-    this.inscricoes.update((lista) => lista.filter((inscricao) => inscricao.id !== id));
-  }
+  confirmar(id: number) {
+    const novaLista: Inscricao[] = [];
 
-  confirmarInscricao(id: number): void {
-    this.inscricoes.update((lista) =>
-      lista.map((inscricao) =>
-        inscricao.id === id ? { ...inscricao, status: 'Confirmada' } : inscricao,
-      ),
-    );
+    for (const inscricao of this.inscricoes()) {
+      if (inscricao.id === id) {
+        novaLista.push({
+          id: inscricao.id,
+          nome: inscricao.nome,
+          email: inscricao.email,
+          oficina: inscricao.oficina,
+          status: 'Confirmada',
+        });
+      } else {
+        novaLista.push(inscricao);
+      }
+    }
+
+    this.inscricoes.set(novaLista);
   }
 }

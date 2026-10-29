@@ -1,12 +1,8 @@
 <section class="card">
   <h1>Inscrições</h1>
 
-  @let inscricoes = inscricaoService.listar();
-  @let confirmadas = inscricoes.filter((inscricao) => inscricao.status === 'Confirmada').length;
-  @let pendentes = inscricoes.length - confirmadas;
-
   <p class="contadores">
-    Total: {{ inscricoes.length }} | Confirmadas: {{ confirmadas }} | Pendentes: {{ pendentes }}
+    Total: {{ total }} | Confirmadas: {{ confirmadas }} | Pendentes: {{ pendentes }}
   </p>
 
   @if (inscricoes.length === 0) {
@@ -25,7 +21,7 @@
         {{ inscricao.status }}
       </span>
 
-      <button class="confirmar" type="button" (click)="inscricaoService.confirmarInscricao(inscricao.id)"
+      <button class="confirmar" type="button" (click)="inscricaoService.confirmar(inscricao.id)"
         [disabled]="inscricao.status === 'Confirmada'">
         Confirmar inscrição
       </button>
