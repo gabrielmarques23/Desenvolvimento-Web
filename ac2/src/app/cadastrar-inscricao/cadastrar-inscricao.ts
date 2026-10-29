@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { InscricaoService } from '../services/inscricao-service';
+import { InscricaoService, NovaInscricao } from '../services/inscricao-service';
 
 @Component({
   selector: 'app-cadastrar-inscricao',
@@ -9,11 +9,11 @@ import { InscricaoService } from '../services/inscricao-service';
   templateUrl: './cadastrar-inscricao.html',
 })
 export class CadastrarInscricao {
-  protected readonly inscricaoService = inject(InscricaoService);
-  protected readonly oficinas = ['Angular', 'TypeScript', 'Git'];
-  protected formulario = { nome: '', email: '', oficina: '' };
+  inscricaoService = inject(InscricaoService);
+  oficinas = ['Angular', 'TypeScript', 'Git'];
+  formulario: NovaInscricao = { nome: '', email: '', oficina: '' };
 
-  protected cadastrar(): void {
+  cadastrar() {
     if (!this.formulario.nome.trim() || !this.formulario.email.trim() || !this.formulario.oficina) {
       return;
     }
